@@ -16,21 +16,24 @@ def __run(path: str, times: int, name: str) -> float:
     return avg
 
 
-def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool):
+def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict:
+    result = dict()
     if c:
         c_exe = compile.compile_c(path + '.c')
+        res = __run(c_exe, times, 'C')
+        result['C'] = res
     if cpp:
         cpp_exe = compile.compile_cpp(path + '.c++')
+        res = __run(cpp_exe, times, 'C++')
+        result['C++'] = res
     if qt:
         qt_exe = compile.compile_qt(path)
-
-    if c:
-        __run(c_exe, times, 'C')
-    if cpp:
-        __run(cpp_exe, times, 'C++')
-    if qt:
-        __run(qt_exe, times, 'Qt')
+        res = __run(qt_exe, times, 'Qt')
+        result['Qt'] = res
+    return result
 
 
 if __name__ == '__main__':
-    compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True)
+    dataframe = dict()
+    dataframe['File IO'] = compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True)
+    print(dataframe)
