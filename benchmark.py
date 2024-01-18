@@ -41,6 +41,7 @@ if __name__ == '__main__':
 
     dataframe = dict()
     dataframe['File IO'] = compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True)
+    dataframe['Callbacks'] = compile_and_run('async/callback', times=50, c=True, cpp=True, qt=False)
     df = pd.DataFrame.from_dict(dataframe)
     df = df.transpose()
     df.columns = ['C', 'C++', 'Qt']
