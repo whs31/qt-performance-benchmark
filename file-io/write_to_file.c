@@ -3,9 +3,9 @@
 
 int main()
 {
-    printf("Starting 1000000 iterations!\n");
+    printf("[ C ] Starting 1'000'000 writes to file\n");
     FILE* fp;
-    fp = fopen("test.txt", "wb");
+    fp = fopen("test.junk", "wb");
     if(fp == NULL)
     {
         printf("Error!");
@@ -17,7 +17,13 @@ int main()
         fwrite(&data, sizeof(uint64_t), 1, fp);
     }
     fclose(fp);
-    printf("Done!\n");
-    remove("test.txt");
+    printf("[ C ] Done!\n");
+
+    printf("[ C ] Cleaning up...\n");
+    int a = remove("test.junk");
+    if(a != 0)
+        perror("[ C ] Failed to remove file!");
+    else
+        printf("[ C ] Done!\n");
     return 0;
 }
