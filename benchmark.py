@@ -4,6 +4,7 @@ import compile
 import subprocess
 import time
 import pandas as pd
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 
@@ -36,9 +37,17 @@ def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict
 
 
 if __name__ == '__main__':
+    plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
+
     dataframe = dict()
     dataframe['File IO'] = compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True)
-    print(dataframe)
     df = pd.DataFrame.from_dict(dataframe)
+    df = df.transpose()
+    df.columns = ['C', 'C++', 'Qt']
+    print(df)
+
     df.plot(kind='bar')
+    plt.legend(loc='upper left')
+    plt.xlabel('Implementation')
+    plt.ylabel('Time (ms)')
     plt.show()
