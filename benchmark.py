@@ -3,6 +3,8 @@ import os
 import compile
 import subprocess
 import time
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def __run(path: str, times: int, name: str) -> float:
@@ -37,3 +39,6 @@ if __name__ == '__main__':
     dataframe = dict()
     dataframe['File IO'] = compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True)
     print(dataframe)
+    df = pd.DataFrame.from_dict(dataframe)
+    df.plot(kind='bar')
+    plt.show()
