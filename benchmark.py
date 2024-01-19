@@ -24,7 +24,7 @@ def __run(path: str, times: int, name: str) -> list:
     return iters
 
 
-def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict:
+def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool, rust: bool = False) -> dict:
     result = dict()
     if c:
         c_exe = compile.compile_c(path + '.c')
@@ -38,6 +38,10 @@ def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict
         qt_exe = compile.compile_qt(path)
         res = __run(qt_exe, times, 'Qt')
         result['Qt'] = res
+    if rust:
+        rust_exe = compile.compile_rust(path + '.rs')
+        res = __run(rust_exe, times, 'Rust')
+        result['Rust'] = res
     return result
 
 
@@ -60,6 +64,6 @@ if __name__ == '__main__':
     #plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
     plt.style.use("cyberpunk")
 
-    plot(compile_and_run('collections/vector_fill_noreserve', times=100, c=False, cpp=True, qt=True), 'Collections - Vector Fill (No Reserve)')
-    plot(compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True), 'File I/O - Write to File')
+    plot(compile_and_run('collections/vector_fill_noreserve', times=100, c=False, cpp=True, qt=True, rust=True), 'Collections - Vector Fill (No Reserve)')
+    plot(compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True, rust=False), 'File I/O - Write to File')
     #dataframe['Callbacks'] = compile_and_run('async/callback', times=50, c=True, cpp=True, qt=False)

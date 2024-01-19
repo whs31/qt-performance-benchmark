@@ -11,7 +11,7 @@ struct Data
     explicit Data(size_t x)
     {
         a = x / 2;
-        b = x / (x % 2);
+        b = x / (x % 2 + 1);
     }
 };
 

@@ -8,6 +8,11 @@ QT_BINARY_PATH = QT_PREFIX_PATH + '\\bin'
 QT_CORE_DLL_PATH = QT_BINARY_PATH + '\\Qt6Core.dll'
 
 
+def compile_rust(path: str) -> str:
+    print(f'Compiling Rust file: {path}')
+    os.system(f'rustc {path} -C opt-level=3 -o {path}.out')
+    return f'{path}.out'
+
 def compile_c(path: str) -> str:
     print(f'Compiling C file: {path}')
     os.system(f'gcc {path} -O3 -o {path}.out')
