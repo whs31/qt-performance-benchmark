@@ -17,6 +17,7 @@ def __run(path: str, times: int, name: str) -> list:
         __s = time.time()
         subprocess.run([path], stdout=open(os.devnull, 'wb'))
         iters.append((time.time() - __s) * 1000)
+    del iters[0]
     end = time.time()
     avg = (end - start) / times * 1000
     print(f'Elapsed average time: {avg} ms')
@@ -50,8 +51,8 @@ def plot(dict: dict, title: str):
     plt.xticks([])
     plt.ylabel('Time (ms)')
     plt.tight_layout()
-    mplcyberpunk.add_glow_effects()
-    mplcyberpunk.add_gradient_fill(alpha_gradientglow=0.5)
+    mplcyberpunk.add_glow_effects(gradient_fill=True)
+    #mplcyberpunk.add_gradient_fill(alpha_gradientglow=0.3)
     plt.show()
 
 
