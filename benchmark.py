@@ -64,6 +64,6 @@ if __name__ == '__main__':
     #plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
     plt.style.use("cyberpunk")
 
-    plot(compile_and_run('collections/vector_fill_noreserve', times=100, c=False, cpp=True, qt=True, rust=True), 'Collections - Vector Fill (No Reserve)')
+    plot(compile_and_run('collections/vector_fill_noreserve', times=100, c=True, cpp=True, qt=True, rust=True), 'Collections - Vector Fill (No Reserve)')
     plot(compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True, rust=False), 'File I/O - Write to File')
     #dataframe['Callbacks'] = compile_and_run('async/callback', times=50, c=True, cpp=True, qt=False)

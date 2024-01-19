@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 struct Data {
     a: u64,
     b: u64,
