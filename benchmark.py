@@ -8,15 +8,18 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 
-def __run(path: str, times: int, name: str) -> float:
+def __run(path: str, times: int, name: str) -> list:
     print(f'Running {name} implementation {times} times')
     start = time.time()
+    iters = list()
     for _ in range(times):
+        __s = time.time()
         subprocess.run([path], stdout=open(os.devnull, 'wb'))
+        iters.append((time.time() - __s) * 1000)
     end = time.time()
     avg = (end - start) / times * 1000
     print(f'Elapsed average time: {avg} ms')
-    return avg
+    return iters
 
 
 def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict:
@@ -36,19 +39,21 @@ def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict
     return result
 
 
+def plot(dict: dict, title: str):
+    df = pd.DataFrame.from_dict(dict)
+    df.plot(kind='area', alpha=0.5)
+    plt.grid()
+    plt.title(title)
+    plt.legend(loc='upper left')
+    plt.xlabel('Iteration')
+    plt.xticks([])
+    plt.ylabel('Time (ms)')
+    plt.tight_layout()
+    plt.show()
+
+
 if __name__ == '__main__':
     plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
 
-    dataframe = dict()
-    dataframe['File IO'] = compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True)
-    dataframe['Callbacks'] = compile_and_run('async/callback', times=50, c=True, cpp=True, qt=False)
-    df = pd.DataFrame.from_dict(dataframe)
-    df = df.transpose()
-    df.columns = ['C', 'C++', 'Qt']
-    print(df)
-
-    df.plot(kind='bar')
-    plt.legend(loc='upper left')
-    plt.xlabel('Implementation')
-    plt.ylabel('Time (ms)')
-    plt.show()
+    plot(compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True), 'File I/O - Write to File')
+    #dataframe['Callbacks'] = compile_and_run('async/callback', times=50, c=True, cpp=True, qt=False)

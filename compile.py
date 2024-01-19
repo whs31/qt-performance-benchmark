@@ -30,7 +30,7 @@ def compile_qt(path: str) -> str:
     os.chdir('build')
 
     if platform == "win32":
-        os.system(f'cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:\\Qt\\6.7.0\\mingw_64 ..')
+        os.system(f'cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH={QT_PREFIX_PATH} ..')
         shutil.copyfile(QT_CORE_DLL_PATH, 'Qt6Core.dll')
     else:
         os.system(f'cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..')
