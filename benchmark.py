@@ -6,6 +6,7 @@ import time
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import mplcyberpunk
 
 
 def __run(path: str, times: int, name: str) -> list:
@@ -49,11 +50,13 @@ def plot(dict: dict, title: str):
     plt.xticks([])
     plt.ylabel('Time (ms)')
     plt.tight_layout()
+    mplcyberpunk.add_glow_effects()
     plt.show()
 
 
 if __name__ == '__main__':
-    plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
+    #plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
+    plt.style.use("cyberpunk")
 
     plot(compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True), 'File I/O - Write to File')
     #dataframe['Callbacks'] = compile_and_run('async/callback', times=50, c=True, cpp=True, qt=False)
