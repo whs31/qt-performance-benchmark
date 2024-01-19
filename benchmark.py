@@ -43,7 +43,7 @@ def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict
 
 def plot(dict: dict, title: str):
     df = pd.DataFrame.from_dict(dict)
-    df.plot(kind='line')
+    df.plot(kind='line', subplots=False)
     #plt.grid()
     plt.title(title)
     plt.legend(loc='upper right')
@@ -60,5 +60,6 @@ if __name__ == '__main__':
     #plt.style.use('https://github.com/dhaitz/matplotlib-stylesheets/raw/master/pitayasmoothie-dark.mplstyle')
     plt.style.use("cyberpunk")
 
+    plot(compile_and_run('collections/vector_fill_noreserve', times=100, c=False, cpp=True, qt=True), 'Collections - Vector Fill (No Reserve)')
     plot(compile_and_run('file-io/write_to_file', times=50, c=True, cpp=True, qt=True), 'File I/O - Write to File')
     #dataframe['Callbacks'] = compile_and_run('async/callback', times=50, c=True, cpp=True, qt=False)
