@@ -42,15 +42,16 @@ def compile_and_run(path: str, times: int, c: bool, cpp: bool, qt: bool) -> dict
 
 def plot(dict: dict, title: str):
     df = pd.DataFrame.from_dict(dict)
-    df.plot(kind='area', alpha=0.5)
-    plt.grid()
+    df.plot(kind='line')
+    #plt.grid()
     plt.title(title)
-    plt.legend(loc='upper left')
+    plt.legend(loc='upper right')
     plt.xlabel('Iteration')
     plt.xticks([])
     plt.ylabel('Time (ms)')
     plt.tight_layout()
     mplcyberpunk.add_glow_effects()
+    mplcyberpunk.add_gradient_fill(alpha_gradientglow=0.5)
     plt.show()
 
 
