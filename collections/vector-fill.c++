@@ -22,10 +22,11 @@ auto main() -> int
 {
     auto start_time = high_resolution_clock::now();
     //
-    vector<Data> vec;
-    for(size_t i = 0; i < 5'000'000; ++i)
-        vec.push_back(Data(i));
-
+    {
+        vector<Data> vec;
+        for(size_t i = 0; i < 5'000'000; ++i)
+            vec.push_back(Data(i));
+    }
     //
     auto end_time = high_resolution_clock::now();
     auto elapsed_time = duration_cast<milliseconds>(end_time - start_time).count();

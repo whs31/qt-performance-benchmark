@@ -1,6 +1,10 @@
-#include <QtCore/QVector>
+#include <cstdint>
+#include <vector>
 #include <chrono>
 #include <iostream>
+
+using namespace std;
+using namespace chrono;
 
 struct Data
 {
@@ -14,16 +18,14 @@ struct Data
     }
 };
 
-int main()
+auto main() -> int
 {
-    using namespace std;
-    using namespace chrono;
     auto start_time = high_resolution_clock::now();
     //
     {
-        QVector<Data> vec;
+        vector<Data> vec;
         for(size_t i = 0; i < 5'000'000; ++i)
-            vec.append(Data(i));
+            vec.emplace_back(i);
     }
     //
     auto end_time = high_resolution_clock::now();

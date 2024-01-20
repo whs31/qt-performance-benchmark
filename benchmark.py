@@ -11,6 +11,7 @@ if __name__ == '__main__':
             benches.BenchType.C,
             benches.BenchType.CXXSTD,
             benches.BenchType.QTCXX,
-            benches.BenchType.RUST
+            benches.BenchType.RUST,
+            benches.BenchType.CXXSTDUNIQUES,
         }
     ).plot()

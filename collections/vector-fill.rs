@@ -19,9 +19,11 @@ impl Data {
 fn main() {
     let start_time = Instant::now();
     //
-    let mut vec: Vec<Data> = Vec::new();
-    for i in 0..5_000_000 {
-        vec.push(Data::new(i));
+    {
+        let mut vec: Vec<Data> = Vec::new();
+        for i in 0..5_000_000 {
+            vec.push(Data::new(i));
+        }
     }
     //
     let end_time = Instant::now();
