@@ -3,6 +3,7 @@ import subprocess
 import pandas
 import matplotlib.pyplot as plt
 import statistics
+import shutil
 from src import compile, benches, execute
 
 
@@ -25,12 +26,14 @@ class Suite:
         self.window = window
         self.__d = dict()
         self.__avgs = dict()
+        self.__compile_times = dict()
 
         self.run()
 
     def run(self):
         for bench_type in list(sorted(self.bench_set, key=lambda x: x.bench_type)):
-            compiled = compile.compile(self.path, bench_type.bench_type, bench_type.filename_suffix)
+            compiled, compile_times = compile.compile(self.path, bench_type.bench_type, bench_type.filename_suffix)
+            self.__compile_times[bench_type.name()] = compile_times
             print(f'Running {bench_type.name()} {self.times} times')
             ls = list()
             for _ in range(self.times):
@@ -41,8 +44,11 @@ class Suite:
             self.__avgs[bench_type.name()] = statistics.median(ls)
             self.__d[bench_type.name()] = ls
 
-            if not bench_type == benches.BenchType.PYTHON:
+            if not bench_type.bench_type == benches.BenchType.PYTHON:
                 compile.cleanup(compiled)
+            if bench_type.bench_type == benches.BenchType.QTCXX:
+                print('Cleaning up Qt cache')
+                shutil.rmtree(os.path.abspath(os.path.join(compiled, os.pardir)))
 
     def results(self):
         return self.__d
@@ -69,6 +75,15 @@ class Suite:
         plt.xlabel('')
         plt.grid(True)
 
+    def plot_compilation_times(self):
+        _ = pandas.DataFrame(self.__compile_times, index=[0])
+        _.plot(kind='bar')
+        plt.title(self.name + ' (compilation times)')
+        plt.legend(loc='upper right')
+        plt.ylabel('seconds')
+        plt.xlabel('')
+
     def plot_all(self):
         self.plot()
         self.plot_averages()
+        self.plot_compilation_times()
