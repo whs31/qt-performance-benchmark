@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import mplcatppuccin
 
 if __name__ == '__main__':
-    mpl.style.use("mocha")
+    mpl.style.use("frappe")
     suite.Suite(
         'collections/vector-fill',
         'Fill vector with 100 000 structs', times=250, window=50, bench_set=
