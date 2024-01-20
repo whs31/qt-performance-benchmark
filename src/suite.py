@@ -29,7 +29,9 @@ class Suite:
             print(f'Median time for {benches.pretty_name(bench_type)}: {statistics.median(ls)} μs')
             self.__avgs[benches.pretty_name(bench_type)] = statistics.median(ls)
             self.__d[benches.pretty_name(bench_type)] = ls
-            compile.cleanup(compiled)
+            
+            if not bench_type == benches.BenchType.PYTHON:
+                compile.cleanup(compiled)
 
     def results(self):
         return self.__d
