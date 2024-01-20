@@ -2,6 +2,7 @@ import os
 from sys import platform
 import shutil
 from src import benches
+import subprocess
 
 
 QT5_WINDOWS_PREFIX_PATH = 'C:\\Qt\\5.15.2\\mingw81_64'
@@ -28,17 +29,21 @@ def compile(path: str, bench_type: benches.BenchType) -> str:
             pass
         os.chdir('__build__')
         if platform == "win32":
-            os.system(f'cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH={QT5_WINDOWS_PREFIX_PATH} ..')
+            # silent
+            subprocess.run(['cmake', '-GNinja', '-DCMAKE_BUILD_TYPE=Release', f'-DCMAKE_PREFIX_PATH={QT5_WINDOWS_PREFIX_PATH}', '..'], stdout=subprocess.DEVNULL)
             shutil.copyfile(QT5_WINDOWS_QT5CORE_DLL_PATH, 'Qt5Core.dll')
         else:
-            os.system(f'cmake -GNinja -DCMAKE_BUILD_TYPE=Release ..')
-        os.system(f'cmake --build .')
+            subprocess.run(['cmake', '-GNinja', '-DCMAKE_BUILD_TYPE=Release', '..'], stdout=subprocess.DEVNULL)
+        subprocess.run(['cmake', '--build', '.'], stdout=subprocess.DEVNULL)
+        # if platform == 'win32':
+        #     os.rename('out.out.exe', f'{path}.out')
+        os.chdir('..')
+        os.chdir('..')
+        os.chdir('..')
         if platform == 'win32':
-            os.rename(f'{path}.out.exe', f'{path}.out')
-        os.chdir('..')
-        os.chdir('..')
-        os.chdir('..')
-        return f'{path}.out'
+            return f'{path}{benches.path_suffix(bench_type)}\\__build__\\out.out.exe'
+        else:
+            return f'{path}{benches.path_suffix(bench_type)}/__build__/out.out'
 
     elif bench_type == benches.BenchType.RUST:
         os.system(f'rustc {path}.{benches.extension(bench_type)} -C opt-level=3 -o {path}.out')

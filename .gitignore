@@ -3,5 +3,5 @@
 *.out
 *.junk
 __pycache__
-build
+__build__
 *.pdb
