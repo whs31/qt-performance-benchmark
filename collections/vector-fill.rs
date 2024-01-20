@@ -20,8 +20,8 @@ fn main() {
     let start_time = Instant::now();
     //
     {
-        let mut vec: Vec<Data> = Vec::with_capacity(500_000);
-        for i in 0..500_000 {
+        let mut vec: Vec<Data> = Vec::with_capacity(100_000);
+        for i in 0..100_000 {
             vec.push(Data::new(i));
         }
     }

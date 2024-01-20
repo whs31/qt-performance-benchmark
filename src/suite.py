@@ -17,11 +17,12 @@ class Bench:
 
 
 class Suite:
-    def __init__(self, path: str, name: str, times: int, bench_set: set[Bench]):
+    def __init__(self, path: str, name: str, times: int, window: int, bench_set: set[Bench]):
         self.path = path
         self.name = name
         self.bench_set = bench_set
         self.times = times
+        self.window = window
         self.__d = dict()
         self.__avgs = dict()
 
@@ -50,7 +51,7 @@ class Suite:
         return pandas.DataFrame(self.__d)
 
     def plot(self):
-        self.as_dataframe().plot(kind='line')
+        self.as_dataframe().rolling(window=self.window).mean().plot(kind='line')
         plt.title(self.name)
         plt.legend(loc='upper right')
         plt.ylabel('μs')

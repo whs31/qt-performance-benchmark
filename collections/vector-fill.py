@@ -14,7 +14,7 @@ class Data:
 def main():
     start_time = time()
     #
-    vec = [Data.new(i) for i in range(500_000)]
+    vec = [Data.new(i) for i in range(100_000)]
     #
     end_time = time()
     elapsed_time = (end_time - start_time) * 1_000_000  # Convert seconds to microseconds

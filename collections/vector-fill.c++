@@ -24,8 +24,8 @@ auto main() -> int
     //
     {
         vector<Data> vec;
-        vec.reserve(500'000);
-        for(size_t i = 0; i < 500'000; ++i)
+        vec.reserve(100'000);
+        for(size_t i = 0; i < 100'000; ++i)
             vec.push_back(Data(i));
     }
     //

@@ -19,8 +19,8 @@ int main() {
     //
     {
         size_t i;
-        struct Data* vec = (struct Data*)malloc(500000 * sizeof(struct Data));
-        for (i = 0; i < 500000; ++i)
+        struct Data* vec = (struct Data*)malloc(100000 * sizeof(struct Data));
+        for (i = 0; i < 100000; ++i)
             initData(&vec[i], i);
         free(vec);
     }

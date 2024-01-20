@@ -7,7 +7,7 @@ if __name__ == '__main__':
     mpl.style.use("mocha")
     suite.Suite(
         'collections/vector-fill',
-        'Fill vector with 500 000 structs', 1000,
+        'Fill vector with 100 000 structs', times=250, window=50, bench_set=
         {
             suite.Bench(benches.BenchType.C),
             suite.Bench(benches.BenchType.CXXSTD),
