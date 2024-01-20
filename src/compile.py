@@ -25,6 +25,9 @@ def compile(path: str, bench_type: benches.BenchType) -> str:
         os.system(f'g++ {path}_uf.{benches.extension(bench_type)} -O3 -o {path}.out')
         return f'{path}.out'
 
+    elif bench_type == benches.BenchType.PYTHON:
+        return f'{path}.{benches.extension(bench_type)}'
+
     elif bench_type == benches.BenchType.QTCXX:
         os.chdir(path + benches.path_suffix(bench_type))
         try:

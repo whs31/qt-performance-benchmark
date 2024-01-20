@@ -2,6 +2,7 @@ import os
 import subprocess
 import pandas
 import matplotlib.pyplot as plt
+import statistics
 from src import compile, benches, execute
 
 
@@ -24,7 +25,9 @@ class Suite:
             for _ in range(self.times):
                 ls.append(execute.execute(compiled, bench_type))
             print(f'Average time for {benches.pretty_name(bench_type)}: {sum(ls) / len(ls)} μs')
-            self.__avgs[benches.pretty_name(bench_type)] = sum(ls) / len(ls)
+            print(f'Standard deviation for {benches.pretty_name(bench_type)}: {statistics.stdev(ls)} μs')
+            print(f'Median time for {benches.pretty_name(bench_type)}: {statistics.median(ls)} μs')
+            self.__avgs[benches.pretty_name(bench_type)] = statistics.median(ls)
             self.__d[benches.pretty_name(bench_type)] = ls
             compile.cleanup(compiled)
 
