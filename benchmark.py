@@ -14,6 +14,7 @@ if __name__ == '__main__':
             suite.Bench(benches.BenchType.QTCXX),
             suite.Bench(benches.BenchType.RUST),
             suite.Bench(benches.BenchType.CXXSTD, 'C++ with emplace_back()', '_uf'),
+            suite.Bench(benches.BenchType.KOTLIN),
             # benches.BenchType.PYTHON,
         }
     ).plot_all()

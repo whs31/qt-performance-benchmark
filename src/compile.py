@@ -52,6 +52,10 @@ def compile(path: str, bench_type: benches.BenchType, suffix: str = '') -> str:
         os.system(f'rustc {path}{suffix}.{benches.extension(bench_type)} -C opt-level=3 -o {path}.out')
         return f'{path}.out'
 
+    elif bench_type == benches.BenchType.KOTLIN:
+        os.system(f'kotlinc {path}{suffix}.{benches.extension(bench_type)} -include-runtime -d {path}.jar')
+        return f'{path}.jar'
+
 
 def cleanup(path: str):
     if os.path.exists(path):
