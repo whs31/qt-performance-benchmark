@@ -1,12 +1,13 @@
 from src import suite, benches
 import matplotlib as mpl
+import matplotlib.pyplot as plt
 import mplcatppuccin
 
 if __name__ == '__main__':
     mpl.style.use("mocha")
     suite.Suite(
         'collections/vector-fill',
-        'Fill vector with 500 000 structs', 250,
+        'Fill vector with 500 000 structs', 100,
         {
             benches.BenchType.C,
             benches.BenchType.CXXSTD,
@@ -14,4 +15,5 @@ if __name__ == '__main__':
             benches.BenchType.RUST,
             benches.BenchType.CXXSTDUNIQUES,
         }
-    ).plot()
+    ).plot_all()
+    plt.show()

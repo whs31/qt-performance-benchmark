@@ -12,6 +12,7 @@ class Suite:
         self.bench_set = bench_set
         self.times = times
         self.__d = dict()
+        self.__avgs = dict()
 
         self.run()
 
@@ -23,6 +24,7 @@ class Suite:
             for _ in range(self.times):
                 ls.append(execute.execute(compiled, bench_type))
             print(f'Average time for {benches.pretty_name(bench_type)}: {sum(ls) / len(ls)} μs')
+            self.__avgs[benches.pretty_name(bench_type)] = sum(ls) / len(ls)
             self.__d[benches.pretty_name(bench_type)] = ls
             compile.cleanup(compiled)
 
@@ -39,4 +41,18 @@ class Suite:
         plt.ylabel('μs')
         plt.xlabel('times')
         plt.grid(True)
-        plt.show()
+
+    def plot_averages(self):
+        # sort self averages by average
+        self.__avgs = dict(sorted(self.__avgs.items(), key=lambda item: item[1]))
+        _ = pandas.DataFrame(self.__avgs, index=[0])
+        _.plot(kind='bar')
+        plt.title(self.name + ' (averages)')
+        plt.legend(loc='upper right')
+        plt.ylabel('μs')
+        plt.xlabel('')
+        plt.grid(True)
+
+    def plot_all(self):
+        self.plot()
+        self.plot_averages()

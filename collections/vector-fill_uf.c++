@@ -24,6 +24,7 @@ auto main() -> int
     //
     {
         vector<Data> vec;
+        vec.reserve(500'000);
         for(size_t i = 0; i < 500'000; ++i)
             vec.emplace_back(i);
     }
