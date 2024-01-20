@@ -8,7 +8,6 @@ class BenchType(enum.Enum):
     PYTHON = 5
     KOTLIN = 6
     CSHARP = 7
-    CXXSTDUNIQUES = 8
 
 
 def path_suffix(bench_type: BenchType) -> str:
@@ -23,7 +22,6 @@ def extension(bench_type: BenchType) -> str:
     elif bench_type == BenchType.PYTHON: return 'py'
     elif bench_type == BenchType.KOTLIN: return 'kt'
     elif bench_type == BenchType.CSHARP: return 'cs'
-    elif bench_type == BenchType.CXXSTDUNIQUES: return 'c++'
 
 
 def pretty_name(bench_type: BenchType) -> str:
@@ -34,4 +32,3 @@ def pretty_name(bench_type: BenchType) -> str:
     elif bench_type == BenchType.PYTHON: return 'Python'
     elif bench_type == BenchType.KOTLIN: return 'Kotlin'
     elif bench_type == BenchType.CSHARP: return 'C#'
-    elif bench_type == BenchType.CXXSTDUNIQUES: return 'C++ (unique features)'

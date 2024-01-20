@@ -10,26 +10,22 @@ QT5_WINDOWS_BINARY_PATH = f'{QT5_WINDOWS_PREFIX_PATH}\\bin'
 QT5_WINDOWS_QT5CORE_DLL_PATH = f'{QT5_WINDOWS_BINARY_PATH}\\Qt5Core.dll'
 
 
-def compile(path: str, bench_type: benches.BenchType) -> str:
-    print(f'Compiling {benches.pretty_name(bench_type)} file ({path}.{benches.extension(bench_type)})')
+def compile(path: str, bench_type: benches.BenchType, suffix: str = '') -> str:
+    print(f'Compiling {benches.pretty_name(bench_type)} file ({path}{suffix}.{benches.extension(bench_type)})')
 
     if bench_type == benches.BenchType.C:
-        os.system(f'gcc {path}.{benches.extension(bench_type)} -O3 -o {path}.out')
+        os.system(f'gcc {path}{suffix}.{benches.extension(bench_type)} -O3 -o {path}.out')
         return f'{path}.out'
 
     elif bench_type == benches.BenchType.CXXSTD:
-        os.system(f'g++ {path}.{benches.extension(bench_type)} -O3 -o {path}.out')
-        return f'{path}.out'
-
-    elif bench_type == benches.BenchType.CXXSTDUNIQUES:
-        os.system(f'g++ {path}_uf.{benches.extension(bench_type)} -O3 -o {path}.out')
+        os.system(f'g++ {path}{suffix}.{benches.extension(bench_type)} -O3 -o {path}.out')
         return f'{path}.out'
 
     elif bench_type == benches.BenchType.PYTHON:
-        return f'{path}.{benches.extension(bench_type)}'
+        return f'{path}{suffix}.{benches.extension(bench_type)}'
 
     elif bench_type == benches.BenchType.QTCXX:
-        os.chdir(path + benches.path_suffix(bench_type))
+        os.chdir(path + suffix + benches.path_suffix(bench_type))
         try:
             os.mkdir('__build__')
         except:
@@ -48,12 +44,12 @@ def compile(path: str, bench_type: benches.BenchType) -> str:
         os.chdir('..')
         os.chdir('..')
         if platform == 'win32':
-            return f'{path}{benches.path_suffix(bench_type)}\\__build__\\out.out.exe'
+            return f'{path}{suffix}{benches.path_suffix(bench_type)}\\__build__\\out.out.exe'
         else:
-            return f'{path}{benches.path_suffix(bench_type)}/__build__/out.out'
+            return f'{path}{suffix}{benches.path_suffix(bench_type)}/__build__/out.out'
 
     elif bench_type == benches.BenchType.RUST:
-        os.system(f'rustc {path}.{benches.extension(bench_type)} -C opt-level=3 -o {path}.out')
+        os.system(f'rustc {path}{suffix}.{benches.extension(bench_type)} -C opt-level=3 -o {path}.out')
         return f'{path}.out'
 
 
