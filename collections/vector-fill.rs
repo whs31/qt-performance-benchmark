@@ -21,12 +21,12 @@ fn main() {
     //
     {
         let mut vec: Vec<Data> = Vec::new();
-        for i in 0..5_000_000 {
+        for i in 0..500_000 {
             vec.push(Data::new(i));
         }
     }
     //
     let end_time = Instant::now();
-    let elapsed_time = end_time.duration_since(start_time).as_millis();
+    let elapsed_time = end_time.duration_since(start_time).as_micros();
     println!("{}", elapsed_time);
 }

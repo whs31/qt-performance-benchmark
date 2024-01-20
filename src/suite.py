@@ -22,7 +22,7 @@ class Suite:
             ls = list()
             for _ in range(self.times):
                 ls.append(execute.execute(compiled, bench_type))
-            print(f'Average time for {benches.pretty_name(bench_type)}: {sum(ls) / len(ls)} ms')
+            print(f'Average time for {benches.pretty_name(bench_type)}: {sum(ls) / len(ls)} μs')
             self.__d[benches.pretty_name(bench_type)] = ls
             compile.cleanup(compiled)
 
@@ -36,7 +36,7 @@ class Suite:
         self.as_dataframe().plot(kind='line')
         plt.title(self.name)
         plt.legend(loc='upper right')
-        plt.ylabel('ms')
+        plt.ylabel('μs')
         plt.xlabel('times')
         plt.grid(True)
         plt.show()

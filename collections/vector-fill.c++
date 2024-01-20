@@ -24,12 +24,12 @@ auto main() -> int
     //
     {
         vector<Data> vec;
-        for(size_t i = 0; i < 5'000'000; ++i)
+        for(size_t i = 0; i < 500'000; ++i)
             vec.push_back(Data(i));
     }
     //
     auto end_time = high_resolution_clock::now();
-    auto elapsed_time = duration_cast<milliseconds>(end_time - start_time).count();
+    auto elapsed_time = duration_cast<microseconds>(end_time - start_time).count();
     cout << elapsed_time;
     return 0;
 }

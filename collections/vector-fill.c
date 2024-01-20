@@ -14,18 +14,19 @@ void initData(struct Data* data, size_t x) {
 }
 
 int main() {
-    clock_t start_time = clock() / (CLOCKS_PER_SEC / 1000);
+    struct timeval st, et;
+    gettimeofday(&st,NULL);
     //
     {
         size_t i;
-        struct Data* vec = (struct Data*)malloc(5000000 * sizeof(struct Data));
-        for (i = 0; i < 5000000; ++i)
+        struct Data* vec = (struct Data*)malloc(500000 * sizeof(struct Data));
+        for (i = 0; i < 500000; ++i)
             initData(&vec[i], i);
         free(vec);
     }
     //
-    clock_t end_time = clock() / (CLOCKS_PER_SEC / 1000);
-    double elapsed_time = (double)(end_time - start_time);
-    printf("%lf", elapsed_time);
+    gettimeofday(&et,NULL);
+    int elapsed = ((et.tv_sec - st.tv_sec) * 1000000) + (et.tv_usec - st.tv_usec);
+    printf("%llu", elapsed);
     return 0;
 }
