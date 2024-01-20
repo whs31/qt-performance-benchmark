@@ -23,9 +23,9 @@ auto main() -> int
     auto start_time = high_resolution_clock::now();
 
     //
-    vector<int> vec;
-    for(size_t i = 0; i < 10'000'000; ++i)
-        vec.push_back(i);
+    vector<Data> vec;
+    for(size_t i = 0; i < 5'000'000; ++i)
+        vec.push_back(Data(i));
 
     //
     auto end_time = high_resolution_clock::now();
