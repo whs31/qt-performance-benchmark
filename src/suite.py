@@ -33,7 +33,7 @@ class Suite:
         return pandas.DataFrame(self.__d)
 
     def plot(self):
-        self.as_dataframe().plot()
+        self.as_dataframe().plot(kind='line')
         plt.title(self.name)
         plt.legend(loc='upper right')
         plt.ylabel('ms')

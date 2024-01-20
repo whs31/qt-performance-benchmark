@@ -46,4 +46,8 @@ def compile(path: str, bench_type: benches.BenchType) -> str:
 
 
 def cleanup(path: str):
-    os.remove(path)
+    if os.path.exists(path):
+        os.remove(path)
+    pdb = path[:-3:] + 'pdb'
+    if os.path.exists(pdb):
+        os.remove(pdb)
