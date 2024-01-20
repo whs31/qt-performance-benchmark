@@ -29,7 +29,7 @@ class Suite:
         self.run()
 
     def run(self):
-        for bench_type in self.bench_set:
+        for bench_type in list(sorted(self.bench_set, key=lambda x: x.bench_type)):
             compiled = compile.compile(self.path, bench_type.bench_type, bench_type.filename_suffix)
             print(f'Running {bench_type.name()} {self.times} times')
             ls = list()

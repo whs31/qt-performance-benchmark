@@ -1,6 +1,6 @@
 import enum
 
-class BenchType(enum.Enum):
+class BenchType(enum.IntEnum):
     C = 1
     CXXSTD = 2
     QTCXX = 3
