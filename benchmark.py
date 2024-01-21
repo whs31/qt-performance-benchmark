@@ -31,6 +31,16 @@ predefined_suites = {
             Bench(BenchType.QTCXX),
             Bench(BenchType.RUST),
         }
+    ),
+    'memory/qobject-delete': (
+        'Delete 10 000 QObject instances',
+        250,
+        50,
+        {
+            Bench(BenchType.QTCXX, 'Raw delete', '_raw'),
+            Bench(BenchType.QTCXX, 'Smart pointer delete', '_unique'),
+            Bench(BenchType.QTCXX, 'Delete via qobject tree', '_this'),
+        }
     )
 }
 
@@ -45,8 +55,9 @@ if __name__ == '__main__':
     mpl.style.use("frappe")
     run_suites(
         [
-            'collections/vector-fill',
-            'memory/smart-pointer'
+            # 'collections/vector-fill',
+            #'memory/smart-pointer'
+            'memory/qobject-delete'
         ]
     )
     plt.show()
