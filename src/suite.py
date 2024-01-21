@@ -63,6 +63,8 @@ class Suite:
         plt.ylabel('μs')
         plt.xlabel('times')
         plt.grid(True)
+        # save fig
+        plt.savefig(f'{self.path}.png')
 
     def plot_averages(self):
         # sort self averages by average
@@ -74,6 +76,7 @@ class Suite:
         plt.ylabel('μs')
         plt.xlabel('')
         plt.grid(True)
+        plt.savefig(f'{self.path}-avg.png')
 
     def plot_compilation_times(self):
         _ = pandas.DataFrame(self.__compile_times, index=[0])
@@ -82,6 +85,7 @@ class Suite:
         plt.legend(loc='upper right')
         plt.ylabel('seconds')
         plt.xlabel('')
+        plt.savefig(f'{self.path}-compilation-times.png')
 
     def plot_all(self):
         self.plot()

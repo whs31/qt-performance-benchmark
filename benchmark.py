@@ -55,8 +55,8 @@ if __name__ == '__main__':
     mpl.style.use("frappe")
     run_suites(
         [
-            # 'collections/vector-fill',
-            #'memory/smart-pointer'
+            'collections/vector-fill',
+            'memory/smart-pointer',
             'memory/qobject-delete'
         ]
     )
