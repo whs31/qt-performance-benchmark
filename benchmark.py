@@ -5,11 +5,12 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import mplcatppuccin
 
-if __name__ == '__main__':
-    mpl.style.use("frappe")
-    Suite(
-        'collections/vector-fill',
-        'Fill vector with 100 000 structs', times=250, window=50, bench_set=
+
+predefined_suites = {
+    'collections/vector-fill': (
+        'Fill vector with 100 000 structs',
+        250,
+        50,
         {
             Bench(BenchType.C),
             Bench(BenchType.CXXSTD),
@@ -17,15 +18,35 @@ if __name__ == '__main__':
             Bench(BenchType.RUST),
             Bench(BenchType.CXXSTD, 'C++ with emplace_back()', '_emplace_back'),
             Bench(BenchType.KOTLIN),
-            # BenchType.PYTHON,
+            # BenchType.PYTHON
         }
-    ).plot_all()
-    ## This suite is not working for now
-    # Suite(
-    #     'async/signals',
-    #     'Emit signal 10 000 times', times=250, window=50, bench_set=
-    #     {
-    #         Bench(BenchType.QTCXX),
-    #     }
-    # ).plot_all()
+    ),
+    'memory/smart-pointer': (
+        'Create 100 000 smart pointers',
+        250,
+        50,
+        {
+            Bench(BenchType.C),
+            Bench(BenchType.CXXSTD),
+            Bench(BenchType.QTCXX),
+            Bench(BenchType.RUST),
+        }
+    )
+}
+
+
+def run_suites(suites: list[str]):
+    for suite in suites:
+        __suite = predefined_suites[suite]
+        Suite(suite, __suite[0], __suite[1], __suite[2], __suite[3]).plot_all()
+
+
+if __name__ == '__main__':
+    mpl.style.use("frappe")
+    run_suites(
+        [
+            'collections/vector-fill',
+            'memory/smart-pointer'
+        ]
+    )
     plt.show()

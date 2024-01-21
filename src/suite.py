@@ -77,7 +77,7 @@ class Suite:
 
     def plot_compilation_times(self):
         _ = pandas.DataFrame(self.__compile_times, index=[0])
-        _.plot(kind='bar')
+        _.plot(kind='bar', alpha=0.5)
         plt.title(self.name + ' (compilation times)')
         plt.legend(loc='upper right')
         plt.ylabel('seconds')
